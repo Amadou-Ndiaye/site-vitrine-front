@@ -1,0 +1,40 @@
+<!-- begin #home -->
+		<div id="home" class="content has-bg home">
+			<!-- begin content-bg -->
+			<div class="content-bg" style="background-image: url(../assets/img/bg/bg-home.jpg);" 
+				data-paroller="true" 
+				data-paroller-factor="0.5"
+				data-paroller-factor-xs="0.25">
+			</div>
+			<!-- end content-bg -->
+			<!-- begin container -->
+			<div class="container home-content">
+				@if (title1()) {
+				<h1>{{title1()}}</h1>
+				}
+				@if (title2()) {
+				<h3>{{title2()}}</h3>
+				}
+				@if (description()) {
+				<p class="description">
+					{{description()}}
+				</p>
+				}
+				@if (cta1()) {
+				<a href="#" class="btn btn-theme btn-primary">
+					{{cta1()}}
+				</a> 
+				}
+				@if (cta2()) {
+				<a href="#" class="btn btn-theme btn-outline-white">
+					{{cta2()}}
+				</a><br />
+				}
+				<br />
+				@if (lien()) {
+				or <a href="#">{{lien()}}</a> newsletter
+				}
+			</div>
+			<!-- end container -->
+		</div>
+		<!-- end #home -->

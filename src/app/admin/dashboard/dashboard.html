@@ -1,0 +1,382 @@
+<div class="dashboard-shell">
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <div class="brand">
+      <div class="brand-icon">
+        <svg viewBox="0 0 24 24"><path d="M3 3h2l2.4 12.2a2 2 0 0 0 2 1.6h8.8a2 2 0 0 0 2-1.6L22 7H6"/><circle cx="10" cy="21" r="1"/><circle cx="18" cy="21" r="1"/></svg>
+      </div>
+      <div>
+        <h2>E-Shop Admin</h2>
+        <p>Gestion de votre boutique</p>
+      </div>
+    </div>
+
+    <nav class="navigation">
+      <button
+        *ngFor="let item of navItems"
+        class="nav-item"
+        [class.active]="activePage === item.label"
+        (click)="setPage(item.label)">
+        <span class="nav-icon">
+          <ng-container [ngSwitch]="item.icon">
+            <svg *ngSwitchCase="'layout-dashboard'" viewBox="0 0 24 24"><rect x="3" y="3" width="8" height="8" rx="2"/><rect x="13" y="3" width="8" height="5" rx="2"/><rect x="13" y="10" width="8" height="11" rx="2"/><rect x="3" y="13" width="8" height="8" rx="2"/></svg>
+            <svg *ngSwitchCase="'package'" viewBox="0 0 24 24"><path d="m12 3 9 5-9 5-9-5 9-5Z"/><path d="M3 8v9l9 5 9-5V8M12 13v9"/></svg>
+            <svg *ngSwitchCase="'shopping-bag'" viewBox="0 0 24 24"><path d="M5 8h14l1 13H4L5 8Z"/><path d="M9 9V6a3 3 0 0 1 6 0v3"/></svg>
+            <svg *ngSwitchCase="'users'" viewBox="0 0 24 24"><circle cx="9" cy="8" r="4"/><path d="M2 21v-2a7 7 0 0 1 14 0v2M17 4a4 4 0 0 1 0 8M19 14a5 5 0 0 1 3 5v2"/></svg>
+            <svg *ngSwitchCase="'layers'" viewBox="0 0 24 24"><path d="m12 3 9 5-9 5-9-5 9-5Z"/><path d="m3 12 9 5 9-5M3 16l9 5 9-5"/></svg>
+            <svg *ngSwitchCase="'tag'" viewBox="0 0 24 24"><path d="M20 13 11 22 2 13V3h10l8 10Z"/><circle cx="7" cy="8" r="1"/></svg>
+            <svg *ngSwitchCase="'file-text'" viewBox="0 0 24 24"><path d="M6 2h8l6 6v14H6a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2Z"/><path d="M14 2v6h6M8 13h8M8 17h8"/></svg>
+          </ng-container>
+        </span>
+        {{ item.label }}
+      </button>
+
+      <div class="nav-divider"></div>
+
+      <button class="nav-item" (click)="setPage('Paramètres')">
+        <span class="nav-icon">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="m19.4 15 .1.1 1.4 1.1-1.5 2.6-1.7-.6a8 8 0 0 1-2 .9l-.3 1.8h-3l-.3-1.8a8 8 0 0 1-2-.9l-1.7.6-1.5-2.6 1.4-1.1a8 8 0 0 1 0-2.2l-1.4-1.1 1.5-2.6 1.7.6a8 8 0 0 1 2-.9l.3-1.8h3l.3 1.8a8 8 0 0 1 2 .9l1.7-.6 1.5 2.6-1.4 1.1a8 8 0 0 1 0 2.1Z"/></svg>
+        </span>
+        Paramètres
+      </button>
+
+      <button class="nav-item" (click)="setPage('Déconnexion')">
+        <span class="nav-icon">
+          <svg viewBox="0 0 24 24"><path d="M10 17l5-5-5-5M15 12H3M12 3h7a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-7"/></svg>
+        </span>
+        Déconnexion
+      </button>
+    </nav>
+
+    <div class="sidebar-promo">
+      <div class="promo-bag">
+        <svg viewBox="0 0 24 24"><path d="M4 8h16l-1 13H5L4 8Z"/><path d="M9 9V6a3 3 0 0 1 6 0v3"/></svg>
+      </div>
+      <strong>Votre boutique en ligne</strong>
+      <p>Plus de ventes, plus de clients, plus de succès !</p>
+    </div>
+  </aside>
+
+  <!-- CONTENU PRINCIPAL -->
+  <main class="main-area">
+
+    <header class="topbar">
+      <div class="search-box">
+        <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg>
+        <input
+          type="search"
+          [(ngModel)]="search"
+          placeholder="Rechercher un produit, une commande, un client...">
+      </div>
+
+      <div class="topbar-right">
+        <button class="notification" aria-label="Notifications">
+          <svg viewBox="0 0 24 24"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9M10 21h4"/></svg>
+          <span class="notification-count">3</span>
+        </button>
+
+        <div class="profile">
+          <div class="avatar">A</div>
+          <div class="profile-info">
+            <strong>Admin</strong>
+            <span>Administrateur</span>
+          </div>
+          <span class="profile-arrow">⌄</span>
+        </div>
+      </div>
+    </header>
+
+    <div class="page-content">
+<div class="page-heading">
+        <div>
+          <h1>{{ activePage }}</h1>
+          <p>Bienvenue sur votre espace administrateur !</p>
+        </div>
+
+        <div class="date-badge">
+          <svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M16 3v4M8 3v4M3 10h18"/></svg>
+          {{ selectedDay }} {{ monthName }} {{ calendarYear }}
+        </div>
+      </div>
+
+      <!-- CARTES STATISTIQUES -->
+      <section class="stats-grid">
+        <article
+          class="stat-card"
+          *ngFor="let stat of stats"
+          [ngClass]="stat.color">
+
+          <div class="stat-icon">
+            <svg *ngIf="stat.icon === 'wallet'" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="15" rx="3"/><path d="M3 9h18M16 14h2"/></svg>
+            <svg *ngIf="stat.icon === 'shopping-cart'" viewBox="0 0 24 24"><path d="M3 3h2l3 13h11l3-9H6"/><circle cx="10" cy="20" r="1"/><circle cx="18" cy="20" r="1"/></svg>
+            <svg *ngIf="stat.icon === 'users'" viewBox="0 0 24 24"><circle cx="9" cy="8" r="4"/><path d="M2 21v-2a7 7 0 0 1 14 0v2M17 4a4 4 0 0 1 0 8M19 14a5 5 0 0 1 3 5v2"/></svg>
+            <svg *ngIf="stat.icon === 'package'" viewBox="0 0 24 24"><path d="m12 3 9 5-9 5-9-5 9-5Z"/><path d="M3 8v9l9 5 9-5V8M12 13v9"/></svg>
+          </div>
+
+          <div class="stat-details">
+            <p>{{ stat.title }}</p>
+            <h2>{{ stat.value }}</h2>
+            <span class="growth">↗️ {{ stat.change }}</span>
+            <small>par rapport au mois dernier</small>
+          </div>
+        </article>
+      </section>
+
+      <!-- GRAPHIQUES ET CALENDRIER -->
+      <section class="analytics-grid">
+
+        <article class="panel sales-panel">
+          <div class="panel-heading">
+            <h3>Évolution des ventes</h3>
+            <select [(ngModel)]="selectedPeriod" aria-label="Période des ventes">
+              <option>7 derniers jours</option>
+              <option>30 derniers jours</option>
+              <option>12 derniers mois</option>
+            </select>
+          </div>
+
+          <div class="sales-chart">
+            <div class="chart-y-labels">
+              <span>800 000</span>
+              <span>600 000</span>
+              <span>400 000</span>
+              <span>200 000</span>
+              <span>0</span>
+            </div>
+
+            <div class="chart-plot">
+              <div class="chart-grid-lines">
+                <span></span><span></span><span></span>
+                <span></span><span></span>
+              </div>
+
+              <svg class="line-chart" viewBox="0 0 500 200" preserveAspectRatio="none">
+                <defs>
+                  <linearGradient id="salesFill" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0%" stop-color="#2583ff" stop-opacity=".28"/>
+                    <stop offset="100%" stop-color="#2583ff" stop-opacity=".02"/>
+                  </linearGradient>
+                </defs>
+                <path
+                  d="M0 163 L70 143 L140 123 L210 136 L280 98 L350 115 L420 82 L500 48 L500 200 L0 200 Z"
+                  fill="url(#salesFill)"/>
+                <polyline
+                  points="0,163 70,143 140,123 210,136 280,98 350,115 420,82 500,48"
+                  fill="none"
+                  stroke="#1680ff"
+                  stroke-width="3"
+                  stroke-linejoin="round"
+                  stroke-linecap="round"/>
+                <g fill="#1680ff" stroke="#fff" stroke-width="2">
+                  <circle cx="0" cy="163" r="4"/>
+                  <circle cx="70" cy="143" r="4"/>
+                  <circle cx="140" cy="123" r="4"/>
+                  <circle cx="210" cy="136" r="4"/>
+                  <circle cx="280" cy="98" r="4"/>
+                  <circle cx="350" cy="115" r="4"/>
+                  <circle cx="420" cy="82" r="4"/>
+                  <circle cx="500" cy="48" r="4"/>
+                </g>
+              </svg>
+<div class="chart-x-labels">
+                <span>26 Mar</span><span>27 Mar</span><span>28 Mar</span>
+                <span>29 Mar</span><span>30 Mar</span><span>31 Mar</span>
+                <span>1 Avr</span><span>2 Avr</span>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <article class="panel categories-panel">
+          <div class="panel-heading">
+            <h3>Répartition des catégories</h3>
+          </div>
+
+          <div class="category-content">
+            <div class="donut-chart">
+              <div class="donut-hole">
+                <span>Total</span>
+                <strong>2 845 000</strong>
+                <span>FCFA</span>
+              </div>
+            </div>
+
+            <div class="category-legend">
+              <div class="legend-row" *ngFor="let category of categories">
+                <span class="legend-dot" [style.background]="category.color"></span>
+                <span class="legend-name">{{ category.name }}</span>
+                <strong>{{ category.percent }}%</strong>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- CALENDRIER -->
+        <article class="panel calendar-panel">
+          <div class="panel-heading">
+            <h3>Calendrier</h3>
+          </div>
+
+          <div class="calendar-header">
+            <button (click)="previousMonth()" aria-label="Mois précédent">‹</button>
+            <strong>{{ monthName }} {{ calendarYear }}</strong>
+            <button (click)="nextMonth()" aria-label="Mois suivant">›</button>
+          </div>
+
+          <div class="calendar-grid">
+            <span class="weekday">Lun</span>
+            <span class="weekday">Mar</span>
+            <span class="weekday">Mer</span>
+            <span class="weekday">Jeu</span>
+            <span class="weekday">Ven</span>
+            <span class="weekday">Sam</span>
+            <span class="weekday">Dim</span>
+
+            <button
+              *ngFor="let day of calendarDays"
+              [class.muted]="day < 0"
+              [class.selected]="day === selectedDay"
+              [disabled]="day < 0"
+              (click)="selectDay(day)">
+              {{ day > 0 ? day : (day > -100 ? -day : -day - 100) }}
+            </button>
+          </div>
+
+          <div class="calendar-event">
+            <div class="event-icon">▦</div>
+            <div>
+              <strong>Aujourd'hui</strong>
+              <p>Aucun événement prévu</p>
+            </div>
+          </div>
+        </article>
+      </section>
+
+      <!-- TABLEAUX ET ACTIVITÉS -->
+      <section class="bottom-grid">
+
+        <article class="panel table-panel">
+          <div class="panel-heading">
+            <h3>Produits les plus vendus</h3>
+            <button class="text-link" (click)="setPage('Produits')">Voir tout →</button>
+          </div>
+
+          <div class="table-scroll">
+            <table>
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Produit</th>
+                  <th>Ventes</th>
+                  <th>CA</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let product of filteredProducts; let i = index">
+                  <td>{{ i + 1 }}</td>
+                  <td>
+                    <div class="product-cell">
+                      <img [src]="product.image" [alt]="product.name">
+                      <span>{{ product.name }}</span>
+                    </div>
+                  </td>
+                  <td>{{ product.sales }}</td>
+                  <td class="revenue">{{ product.revenue }}</td>
+                </tr>
+                <tr *ngIf="filteredProducts.length === 0">
+                  <td colspan="4" class="empty-state">Aucun produit trouvé.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </article>
+<article class="panel table-panel orders-panel">
+          <div class="panel-heading">
+            <h3>Dernières commandes</h3>
+            <button class="text-link" (click)="setPage('Commandes')">Voir tout →</button>
+          </div>
+
+          <div class="table-scroll">
+            <table>
+              <thead>
+                <tr>
+                  <th>N° commande</th>
+                  <th>Client</th>
+                  <th>Montant</th>
+                  <th>Statut</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let order of filteredOrders">
+                  <td>
+                    <strong class="order-id">{{ order.id }}</strong>
+                    <small class="order-date">{{ order.date }}</small>
+                  </td>
+                  <td>{{ order.customer }}</td>
+                  <td class="revenue">{{ order.amount }}</td>
+                  <td>
+                    <span
+                      class="status"
+                      [ngClass]="{
+                        'delivered': order.status === 'Livrée',
+                        'processing': order.status === 'En cours',
+                        'shipped': order.status === 'Expédiée',
+                        'pending': order.status === 'En attente'
+                      }">
+                      {{ order.status }}
+                    </span>
+                  </td>
+                </tr>
+                <tr *ngIf="filteredOrders.length === 0">
+                  <td colspan="4" class="empty-state">Aucune commande trouvée.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </article>
+
+        <article class="panel activity-panel">
+          <div class="panel-heading">
+            <h3>Activités récentes</h3>
+          </div>
+
+          <div class="activity-list">
+            <div class="activity-item" *ngFor="let activity of activities">
+              <div class="activity-icon" [ngClass]="activity.color">
+                <svg *ngIf="activity.icon === 'shopping-cart'" viewBox="0 0 24 24"><path d="M3 3h2l3 13h11l3-9H6"/><circle cx="10" cy="20" r="1"/><circle cx="18" cy="20" r="1"/></svg>
+                <svg *ngIf="activity.icon === 'users'" viewBox="0 0 24 24"><circle cx="9" cy="8" r="4"/><path d="M2 21v-2a7 7 0 0 1 14 0v2M17 4a4 4 0 0 1 0 8"/></svg>
+                <svg *ngIf="activity.icon === 'package'" viewBox="0 0 24 24"><path d="m12 3 9 5-9 5-9-5 9-5Z"/><path d="M3 8v9l9 5 9-5V8M12 13v9"/></svg>
+                <svg *ngIf="activity.icon === 'tag'" viewBox="0 0 24 24"><path d="M20 13 11 22 2 13V3h10l8 10Z"/><circle cx="7" cy="8" r="1"/></svg>
+                <svg *ngIf="activity.icon === 'clock'" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+              </div>
+
+              <div class="activity-details">
+                <strong>{{ activity.title }}</strong>
+                <p>{{ activity.detail }}</p>
+                <small>{{ activity.time }}</small>
+              </div>
+            </div>
+          </div>
+        </article>
+      </section>
+
+      <!-- BANNIÈRE PROMOTIONNELLE -->
+      <section class="promo-banner">
+        <div>
+          <span class="promo-label">CONSEIL DU JOUR</span>
+          <h3>Boostez vos ventes</h3>
+          <p>Offrez une meilleure expérience à vos clients avec une gestion simple et efficace.</p>
+          <button (click)="setPage('Rapports')">Voir les rapports →</button>
+        </div>
+        <div class="promo-illustration">🛍</div>
+      </section>
+
+      <footer class="page-footer">
+        <span>© 2025 E-Shop Admin. Tous droits réservés.</span>
+        <div><a href="#conditions">Conditions d'utilisation</a><a href="#aide">Aide</a><a href="#contact">Contact</a></div>
+      </footer>
+
+    </div>
+  </main>
+</div>
